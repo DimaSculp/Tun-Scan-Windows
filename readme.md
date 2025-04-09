@@ -35,10 +35,8 @@ go build -o scantune.exe main.go
 ```bash
 ./tap-analyzer.exe
 ```
-* чтобы залить траффик в туннель выполните команду:
-```bash
-Sudo route add 0.0.0.0 mask 0.0.0.0 <IP TUN INTERFACE>
-```
+### Траффик на интерфейсе настраивается автоматически
+
 
 ### Контакты:
 - Telegram: @sculp2ra
