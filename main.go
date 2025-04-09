@@ -358,8 +358,22 @@ func main() {
 	tun, err := CreateTUN("tun0", 1500)
 	if err != nil {
 		log.Fatalf("Failed to create TUN interface: %v", err)
+		return
 	}
-	defer tun.Close()
+
+	cmd := exec.Command("netsh", "interface", "ipv4", "set", "address",
+		"tun0", "static", "192.168.5.1", "255.255.255.0", "0.0.0.0")
+	if err := cmd.Run(); err != nil {
+		log.Println("failed to set IP: %v", err)
+	} else {
+		log.Println("route set: 192.168.5.1")
+		log.Println("IP set: 192.168.5.1 \n Mask: 255.255.255.0")
+		time.Sleep(3 * time.Second)
+
+		if err != nil {
+			log.Fatalf("Failed to create TUN interface: %v", err)
+		}
+		defer tun.Close()
 
 	var wg sync.WaitGroup
 	wg.Add(1)
